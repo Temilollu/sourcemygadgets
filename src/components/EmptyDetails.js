@@ -20,10 +20,9 @@ EmptyDetails.Wrapper = styled.div`
   img {
   }
   p {
-    font-family: Roboto;
     font-style: normal;
     font-weight: normal;
-    font-size: 12.22222px;
+    font-size: 9.22222px;
     line-height: 15px;
     color: #051a2e;
     margin: 1rem 0;

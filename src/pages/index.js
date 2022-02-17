@@ -4,13 +4,15 @@ import styled from "styled-components";
 import PostDetails from "../components/PostDetails";
 import Tab from "../components/Tab";
 import UserDetails from "../components/UserDetails";
-import addUser from "../images/Vector (2).png";
+import addUser from "../images/create.png";
 import userImg from "../images/Vector (6).png";
 import postImg from "../images/Vector (7).png";
 import commentImg from "../images/Vector (8).png";
 import { getUsers } from "../redux/usersSlice";
 import { getPosts } from "../redux/postsSlice";
 import { Card } from "../styles/home";
+import { Modal } from "../components/Modal";
+import AddUserForm from "../components/AddUserForm";
 
 function Index() {
   const data = [
@@ -24,6 +26,7 @@ function Index() {
   const { users, status } = useSelector((state) => state.users);
   const { posts, status: postStatus } = useSelector((state) => state.posts);
   const [singleItem, setSingleItem] = React.useState("");
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     if (value === 0) {
@@ -50,8 +53,19 @@ function Index() {
 
   return (
     <Index.Wrapper>
+      {open && (
+        <Modal onClick={() => setOpen(false)}>
+          <div
+            bgcolor="white"
+            onClick={(e) => e.stopPropagation()}
+            className="modal-body"
+          >
+           <AddUserForm setOpen={setOpen} />
+          </div>
+        </Modal>
+      )}
       <div className="left">
-        <div className="add-user">
+        <div className="add-user" onClick={() => setOpen(true)}>
           <img src={addUser} alt="" />
         </div>
       </div>
@@ -120,7 +134,17 @@ Index.Wrapper = styled.div`
       display: flex;
       justify-content: center;
       align-items: center;
+      cursor: pointer;
     }
+  }
+  .modal-body {
+    position: absolute;
+    width: 600px;
+    left: calc(50% - 600px / 2 + 2px);
+    top: calc(50% - 487.68px / 2 - 0.16px);
+    background: #ffffff;
+    border-radius: 5px;
+    padding: 20px;
   }
   .right {
     flex: 11;
@@ -196,7 +220,7 @@ Index.Wrapper = styled.div`
       background: #ffffff;
       border: 0.693467px solid #c0c2c5;
       border-radius: 5.54774px;
-      //   min-height: 448.38px;
+      height: 455px;
     }
   }
 `;
