@@ -9,6 +9,7 @@ export default function DataTable({
   page,
   handlePageChange,
   loading,
+  handleRowClick,
 }) {
   return (
     <DataTable.Wrapper style={{ height: 400, width: "100%" }}>
@@ -22,6 +23,10 @@ export default function DataTable({
         page={page - 1}
         paginationMode="server"
         loading={loading}
+        onRowClick={(params, event) => {
+          event.defaultMuiPrevented = true;
+          handleRowClick(params.row.id);
+        }}
       />
     </DataTable.Wrapper>
   );
@@ -38,7 +43,7 @@ DataTable.Wrapper = styled.div`
     background: white;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 4px;
-
+    cursor: pointer;
     &:hover {
       background-color: white !important;
     }

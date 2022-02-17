@@ -52,6 +52,7 @@ export default function TabsComponent({
   userStatus,
   posts,
   postStatus,
+  handleRowClick,
 }) {
   const [userRows, setUserRows] = useState([]);
   const [postRows, setPostRows] = useState([]);
@@ -60,7 +61,7 @@ export default function TabsComponent({
   };
 
   useEffect(() => {
-    if (userStatus === "success" && value == 0) {
+    if (userStatus === "success" && value === 0) {
       const data = users?.data.map(({ title, firstName, lastName, id }) => ({
         id,
         title,
@@ -71,7 +72,7 @@ export default function TabsComponent({
       }));
       setUserRows(data);
     }
-  }, [userStatus, value]);
+  }, [userStatus, value, users.data]);
 
   useEffect(() => {
     if (postStatus === "success" && value === 1) {
@@ -85,11 +86,7 @@ export default function TabsComponent({
       }));
       setPostRows(data);
     }
-  }, [postStatus, value]);
-
-  //   if (userStatus === "loading" || postStatus === "loading") {
-  //     return "Loading....";
-  //   }
+  }, [postStatus, value, posts.data]);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -122,6 +119,7 @@ export default function TabsComponent({
               handlePageChange={handlePageChange}
               rows={userRows}
               loading={userStatus === "loading"}
+              handleRowClick={handleRowClick}
             />
           </TabPanel>
           <TabPanel value={value} index={1}>
@@ -132,6 +130,7 @@ export default function TabsComponent({
               handlePageChange={handlePageChange}
               data={posts}
               loading={postStatus === "loading"}
+              handleRowClick={handleRowClick}
             />
           </TabPanel>
         </>

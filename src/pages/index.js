@@ -23,6 +23,7 @@ function Index() {
   const dispatch = useDispatch();
   const { users, status } = useSelector((state) => state.users);
   const { posts, status: postStatus } = useSelector((state) => state.posts);
+  const [singleItem, setSingleItem] = React.useState("");
 
   useEffect(() => {
     if (value === 0) {
@@ -36,11 +37,16 @@ function Index() {
     setPage(newPage + 1);
   }
 
+  const handleRowClick = (id) => {
+    setSingleItem(id);
+  };
+
   useEffect(() => {
     setPage(1);
+    setSingleItem("");
   }, [value]);
 
-  console.log(posts, postStatus);
+  //   console.log(posts, postStatus);
 
   return (
     <Index.Wrapper>
@@ -78,11 +84,16 @@ function Index() {
               handlePageChange={handlePageChange}
               postStatus={postStatus}
               posts={posts}
+              handleRowClick={handleRowClick}
             />
           </div>
           <div className="selected-item">
             {" "}
-            {value === 0 ? <UserDetails /> : <PostDetails />}
+            {value === 0 ? (
+              <UserDetails id={singleItem} />
+            ) : (
+              <PostDetails id={singleItem} />
+            )}
           </div>
         </div>
       </div>

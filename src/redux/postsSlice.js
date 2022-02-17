@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
-const baseUrl = "https://dummyapi.io/data/v1/";
+import { baseUrl } from "./constants";
 
 export const getPosts = createAsyncThunk("posts/getPosts", async ({ page }) => {
   return await fetch(`${baseUrl}post?page=${page}&limit=10`, {

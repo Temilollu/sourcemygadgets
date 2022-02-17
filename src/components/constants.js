@@ -1,4 +1,3 @@
-import user from "../images/Ellipse 8.png";
 import styled from "styled-components";
 import likeIcon from "../images/Vector (9).png";
 export const userColumns = [

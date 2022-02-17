@@ -1,25 +1,74 @@
 import styled from "styled-components";
 import postImg from "../images/unsplash_1K7yDWuamRA.png";
 import ownerImg from "../images/Rectangle 26.png";
-const PostDetails = () => {
+import { useDispatch, useSelector } from "react-redux";
+import { getSinglePost } from "../redux/singlePostSlice";
+import { CircularProgress } from "@mui/material";
+import { useEffect } from "react";
+import EmptyDetails from "./EmptyDetails";
+import emptyPostImg from "../images/Vector.png";
+const PostDetails = ({ id }) => {
+  const dispatch = useDispatch();
+  const { singlePost, status } = useSelector((state) => state.singlePost);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getSinglePost(id));
+    }
+  }, [id, dispatch]);
+
+  if (status === "loading") {
+    return (
+      <CircularProgress
+        color="success"
+        style={{ width: "100%", display: "flex", justifyContent: "center" }}
+      />
+    );
+  }
+
+  if (status === "failed") {
+    return <h2>Error while fetching data</h2>;
+  }
+
+  if (!id) {
+    return (
+      <EmptyDetails
+        image={emptyPostImg}
+        description={
+          "View a selected post’s full details here by clicking on the post"
+        }
+      />
+    );
+  }
+
   return (
     <PostDetails.Wrapper>
-      <img src={postImg} alt="" className="postImg" />
-      <p className="heading-text">adult Labrador retriever</p>
-      <p className="likes"> ❤️ 96 likes</p>
+      <img src={singlePost?.image || postImg} alt="" className="postImg" />
+      <p className="heading-text">{singlePost?.text}</p>
+      <p className="likes"> ❤️ {singlePost?.likes} likes</p>
       <h4>Tags</h4>
       <div className="tags">
-        <p className="tag">Animal</p>
-        <p className="tag">dog</p>
-        <p className="tag">golden retriever</p>
+        {singlePost.tags?.map((item) => (
+          <p className="tag" key={item}>
+            {item}
+          </p>
+        ))}
       </div>
       <h2>OWNER</h2>
       <div className="owner-details">
-        <img src={ownerImg} alt="" /> <span>Edita Lane</span>
+        <img src={singlePost?.owner?.picture || ownerImg} alt="" />{" "}
+        <span>
+          {" "}
+          {singlePost?.owner?.firstName} {singlePost?.owner?.lastName}
+        </span>
       </div>
+
       <div className="details-profile">
         <p className="key">FULL Name</p>
-        <p className="value">Mrs. Edita Lane</p>
+        <p className="value">
+          {singlePost?.owner?.title} {singlePost?.owner?.firstName}{" "}
+          {singlePost?.owner?.lastName}
+        </p>
       </div>
       <div className="details-profile">
         <p className="key">email address</p>
@@ -116,5 +165,9 @@ PostDetails.Wrapper = styled.div`
     line-height: 12px;
     color: #dd3c3c;
     margin: 10px 0;
+  }
+  .postImg {
+    width: 100%;
+    height: 178px;
   }
 `;
