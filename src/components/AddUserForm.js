@@ -98,7 +98,7 @@ const AddUserForm = ({ setOpen }) => {
     if (status === "failed") {
       setError(true);
     }
-  }, [status]);
+  }, [status, formik]);
 
   useEffect(() => {
     setOpenToast(false);

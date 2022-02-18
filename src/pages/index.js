@@ -50,8 +50,6 @@ function Index() {
     setSingleItem("");
   }, [value]);
 
-  //   console.log(posts, postStatus);
-
   return (
     <Index.Wrapper>
       {open && (
