@@ -15,11 +15,6 @@ import { Modal } from "../components/Modal";
 import AddUserForm from "../components/AddUserForm";
 
 function Index() {
-  const data = [
-    { name: "Users", count: 30, image: userImg },
-    { name: "Posts", count: 20, image: postImg },
-    { name: "Comments", count: 90, image: commentImg },
-  ];
   const [value, setValue] = React.useState(0);
   const [page, setPage] = React.useState(1);
   const dispatch = useDispatch();
@@ -27,6 +22,12 @@ function Index() {
   const { posts, status: postStatus } = useSelector((state) => state.posts);
   const [singleItem, setSingleItem] = React.useState("");
   const [open, setOpen] = React.useState(false);
+
+  const data = [
+    { name: "Users", count: users.total || 99, image: userImg },
+    { name: "Posts", count: posts.total || 873, image: postImg },
+    { name: "Comments", count: 90, image: commentImg },
+  ];
 
   useEffect(() => {
     if (value === 0) {

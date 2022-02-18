@@ -18,10 +18,6 @@ const AddUserForm = ({ setOpen }) => {
   const [openToast, setOpenToast] = useState(false);
   const [error, setError] = useState(false);
 
-  const handleClick = () => {
-    setOpen(true);
-  };
-
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
@@ -37,6 +33,7 @@ const AddUserForm = ({ setOpen }) => {
 
     setError(false);
   };
+
   const dispatch = useDispatch();
   const { status } = useSelector((state) => state.addUser);
   const validationSchema = yup.object().shape({
@@ -99,10 +96,14 @@ const AddUserForm = ({ setOpen }) => {
       setOpenToast(true);
     }
     if (status === "failed") {
-      console.log("failed");
       setError(true);
     }
   }, [status]);
+
+  useEffect(() => {
+    setOpenToast(false);
+    setError(false);
+  }, []);
   return (
     <AddUserForm.Wrapper>
       <Snackbar open={openToast} autoHideDuration={6000} onClose={handleClose}>
