@@ -60,7 +60,7 @@ function Index() {
             onClick={(e) => e.stopPropagation()}
             className="modal-body"
           >
-           <AddUserForm setOpen={setOpen} />
+            <AddUserForm setOpen={setOpen} />
           </div>
         </Modal>
       )}
@@ -141,10 +141,12 @@ Index.Wrapper = styled.div`
     position: absolute;
     width: 600px;
     left: calc(50% - 600px / 2 + 2px);
-    top: calc(50% - 487.68px / 2 - 0.16px);
+    // top: calc(50% - 487.68px / 2 - 0.16px);
     background: #ffffff;
     border-radius: 5px;
     padding: 20px;
+    height: 500px;
+    overflow-y: scroll;
   }
   .right {
     flex: 11;

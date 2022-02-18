@@ -2,3 +2,8 @@
   margin: 0;
   font-family: "Libre Franklin", sans-serif;
 }
+.MuiPaper-root li {
+  display: block !important;
+  padding: 10px;
+  /* border-bottom: 1px solid grey; */
+}
